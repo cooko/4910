@@ -1,0 +1,46 @@
+<html>
+	<head>
+		<title>leapGraph</title>
+	</head>
+	<body style="margin: 0px;">
+	    <script src="./src/leapGraph.js"></script>
+	    <script src="./lib/three.js"></script>
+	    <script src="./lib/OrbitControls.js"></script>
+	    <script src="./lib/helvetiker_regular.typeface.js"></script>
+	    <script>
+
+		var renderer;
+		var camera;
+		var scene;
+
+		initScene();
+		
+		drawLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(10, 0, 0));
+		drawLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(0, 10, 0));
+		drawLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(0, 0, 10));
+
+		drawPoint();
+
+//**************************DANGER ZONE**************************//
+		var textMaterial = new THREE.MeshBasicMaterial( { color: 0x0000ff } );
+		var x = new THREE.Mesh( buildTextGeometry("x"), textMaterial );
+		var y = new THREE.Mesh( buildTextGeometry("y"), textMaterial );
+		var z = new THREE.Mesh( buildTextGeometry("z"), textMaterial );
+
+		x.position = new THREE.Vector3(10, 0, 0);
+		y.position = new THREE.Vector3(0, 10, 0);
+		z.position = new THREE.Vector3(0, 0, 10);
+		
+		scene.add(x);
+		scene.add(y);
+		scene.add(z);
+
+//**************************DANGER ZONE**************************//
+
+
+
+		controls = new THREE.OrbitControls( camera, renderer.domElement );
+	    render();
+	    </script>
+	</body>
+</html>
