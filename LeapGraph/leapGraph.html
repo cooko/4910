@@ -3,23 +3,45 @@
 		<title>leapGraph</title>
 	</head>
 	<body style="margin: 0px;">
+
+	<!-- Put actual website stuff here so it loads faster, THANKS CHRIS -->
+
 	    <script src="./src/leapGraph.js"></script>
+	    <script src="./src/leapControl.js"></script>
 	    <script src="./lib/three.js"></script>
 	    <script src="./lib/OrbitControls.js"></script>
 	    <script src="./lib/helvetiker_regular.typeface.js"></script>
+	    <script src="http://js.leapmotion.com/0.2.0/leap.min.js"></script>
+
 	    <script>
 
 		var renderer;
 		var camera;
 		var scene;
+		var controller;
 
 		var axis;
 		var labels;
 
+		var hand = drawPoint();
+
 		initScene();
+		//initLeap();
+		scene.add(hand);
 
 		controls = new THREE.OrbitControls( camera, renderer.domElement );
-	    render();
+//	    controller.connect();
+
+		Leap.loop( function( frame ){
+			if(frame.hands.length > 0){
+    			hand.position.x = frame.hands[0].palmPosition[0];
+    			hand.position.y = frame.hands[0].palmPosition[1];
+    			hand.position.z = frame.hands[0].palmPosition[2];
+    			console.log(frame.hands[0].palmPosition);
+    		}
+			render();
+		})
+
 	    </script>
 	</body>
 </html>

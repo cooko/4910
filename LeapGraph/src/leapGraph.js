@@ -32,13 +32,13 @@ function drawAxis(){
 
 	axis = new THREE.Object3D();
 
-	axis.add(drawLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(10, 0, 0)));
-	axis.add(drawLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(0, 10, 0)));
-	axis.add(drawLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(0, 0, 10)));
+	axis.add(drawLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(100, 0, 0)));
+	axis.add(drawLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(0, 100, 0)));
+	axis.add(drawLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(0, 0, 100)));
 	
-	axis.add(drawDashedLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(-10, 0, 0)));
-	axis.add(drawDashedLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(0, -10, 0)));
-	axis.add(drawDashedLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(0, 0, -10)));
+	axis.add(drawDashedLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(-100, 0, 0)));
+	axis.add(drawDashedLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(0, -100, 0)));
+	axis.add(drawDashedLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(0, 0, -100)));
 
 	scene.add(axis);
 }
@@ -48,9 +48,9 @@ function drawLabels(){
 	var y = new THREE.Mesh( buildTextGeometry("y"), textMaterial );
 	var z = new THREE.Mesh( buildTextGeometry("z"), textMaterial );
 
-	x.position = new THREE.Vector3(10, 0, 0);
-	y.position = new THREE.Vector3(0, 10, 0);
-	z.position = new THREE.Vector3(0, 0, 10);
+	x.position = new THREE.Vector3(100, 0, 0);
+	y.position = new THREE.Vector3(0, 100, 0);
+	z.position = new THREE.Vector3(0, 0, 100);
 	
 	labels = new THREE.Object3D();
 
@@ -65,7 +65,7 @@ function drawPoint(){
 	var geometry = new THREE.CubeGeometry(1,1,1);
 	var material = new THREE.MeshBasicMaterial( { color: 0x0000ff } );
 	var point = new THREE.Mesh( geometry, material );
-	scene.add( point );
+	return point;
 }
 function buildTextGeometry(letter){
 	var text3d = new THREE.TextGeometry( letter, {
@@ -82,14 +82,13 @@ function initScene(){
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
-    camera.position.set(25, 25, 30);
+    camera.position.set(150, 150, 150);
     camera.lookAt(new THREE.Vector3(0, 0, 0));
     scene = new THREE.Scene();
 	controls = new THREE.OrbitControls( camera, renderer.domElement );
 
 	drawAxis();
 	drawLabels();
-
 }
 
 function render() {
@@ -97,6 +96,8 @@ function render() {
 	labels.children[0].lookAt( camera.position );
 	labels.children[1].lookAt( camera.position );
 	labels.children[2].lookAt( camera.position );
+
+
 
 	renderer.render(scene, camera);
 }
