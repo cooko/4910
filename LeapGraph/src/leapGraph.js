@@ -11,6 +11,23 @@ function drawLine(start, finish){
     scene.add(line);
 
 }
+function drawDashedLine(start, finish){
+    var material = new THREE.LineDashedMaterial({
+        color: 0x0000ff,
+        dashSize: 1,
+        gapSize: 0.5
+    });
+
+    var geometry = new THREE.Geometry();
+    geometry.vertices.push(start);
+    geometry.vertices.push(finish);
+    
+    geometry.computeLineDistances(); // This one is SUPER important, otherwise dashed lines will appear as simple plain lines
+
+    var line = new THREE.Line(geometry, material);
+    scene.add(line);
+
+}
 function drawPoint(){
 	var geometry = new THREE.CubeGeometry(1,1,1);
 	var material = new THREE.MeshBasicMaterial( { color: 0x0000ff } );

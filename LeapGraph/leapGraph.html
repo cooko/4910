@@ -19,7 +19,9 @@
 		drawLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(0, 10, 0));
 		drawLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(0, 0, 10));
 
-		drawPoint();
+		drawDashedLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(-10, 0, 0));
+		drawDashedLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(0, -10, 0));
+		drawDashedLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(0, 0, -10));
 
 //**************************DANGER ZONE**************************//
 		var textMaterial = new THREE.MeshBasicMaterial( { color: 0x0000ff } );
@@ -36,8 +38,6 @@
 		scene.add(z);
 
 //**************************DANGER ZONE**************************//
-
-
 
 		controls = new THREE.OrbitControls( camera, renderer.domElement );
 	    render();
