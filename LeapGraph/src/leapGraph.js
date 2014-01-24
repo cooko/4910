@@ -8,8 +8,8 @@ function drawLine(start, finish){
     geometry.vertices.push(finish);
     
     var line = new THREE.Line(geometry, material);
-    scene.add(line);
 
+    return line;
 }
 function drawDashedLine(start, finish){
     var material = new THREE.LineDashedMaterial({
@@ -25,7 +25,40 @@ function drawDashedLine(start, finish){
     geometry.computeLineDistances(); // This one is SUPER important, otherwise dashed lines will appear as simple plain lines
 
     var line = new THREE.Line(geometry, material);
-    scene.add(line);
+
+    return line;
+}
+function drawAxis(){
+
+	axis = new THREE.Object3D();
+
+	axis.add(drawLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(10, 0, 0)));
+	axis.add(drawLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(0, 10, 0)));
+	axis.add(drawLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(0, 0, 10)));
+	
+	axis.add(drawDashedLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(-10, 0, 0)));
+	axis.add(drawDashedLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(0, -10, 0)));
+	axis.add(drawDashedLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(0, 0, -10)));
+
+	scene.add(axis);
+}
+function drawLabels(){
+	var textMaterial = new THREE.MeshBasicMaterial( { color: 0x0000ff } );
+	var x = new THREE.Mesh( buildTextGeometry("x"), textMaterial );
+	var y = new THREE.Mesh( buildTextGeometry("y"), textMaterial );
+	var z = new THREE.Mesh( buildTextGeometry("z"), textMaterial );
+
+	x.position = new THREE.Vector3(10, 0, 0);
+	y.position = new THREE.Vector3(0, 10, 0);
+	z.position = new THREE.Vector3(0, 0, 10);
+	
+	labels = new THREE.Object3D();
+
+	labels.add(x);
+	labels.add(y);
+	labels.add(z);
+
+	scene.add(labels);
 
 }
 function drawPoint(){
@@ -53,13 +86,17 @@ function initScene(){
     camera.lookAt(new THREE.Vector3(0, 0, 0));
     scene = new THREE.Scene();
 	controls = new THREE.OrbitControls( camera, renderer.domElement );
+
+	drawAxis();
+	drawLabels();
+
 }
 
 function render() {
 	requestAnimationFrame(render);
-	x.lookAt( camera.position );
-	y.lookAt( camera.position );
-	z.lookAt( camera.position );
+	labels.children[0].lookAt( camera.position );
+	labels.children[1].lookAt( camera.position );
+	labels.children[2].lookAt( camera.position );
 
 	renderer.render(scene, camera);
 }

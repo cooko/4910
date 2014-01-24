@@ -13,31 +13,10 @@
 		var camera;
 		var scene;
 
+		var axis;
+		var labels;
+
 		initScene();
-		
-		drawLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(10, 0, 0));
-		drawLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(0, 10, 0));
-		drawLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(0, 0, 10));
-
-		drawDashedLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(-10, 0, 0));
-		drawDashedLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(0, -10, 0));
-		drawDashedLine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(0, 0, -10));
-
-//**************************DANGER ZONE**************************//
-		var textMaterial = new THREE.MeshBasicMaterial( { color: 0x0000ff } );
-		var x = new THREE.Mesh( buildTextGeometry("x"), textMaterial );
-		var y = new THREE.Mesh( buildTextGeometry("y"), textMaterial );
-		var z = new THREE.Mesh( buildTextGeometry("z"), textMaterial );
-
-		x.position = new THREE.Vector3(10, 0, 0);
-		y.position = new THREE.Vector3(0, 10, 0);
-		z.position = new THREE.Vector3(0, 0, 10);
-		
-		scene.add(x);
-		scene.add(y);
-		scene.add(z);
-
-//**************************DANGER ZONE**************************//
 
 		controls = new THREE.OrbitControls( camera, renderer.domElement );
 	    render();
