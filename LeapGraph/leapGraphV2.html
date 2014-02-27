@@ -7,18 +7,24 @@
     <script src="https://rawgithub.com/mrdoob/three.js/master/build/three.js"></script>
     <script src="https://js.leapmotion.com/0.2.0-beta1/leap.min.js"></script>
     <script src="./leapGraph.js"></script>
+    <script src="./lib/OrbitControls.js"></script>
     <script>
-      var scene;
-      var camera;
-      var renderer;
-
-      var grid = new grid(10,10,10);
-
+      var scene, camera, renderer, controls;
       init();
 
-      Leap.loop(function(frame) {
+      var grid = new grid(10,10,10);
+      grid.draw();
+
+      var geometry = new THREE.CubeGeometry(1,1,1);
+      var material = new THREE.MeshBasicMaterial( { color: 0x0000ff } );
+      var point = new THREE.Mesh( geometry, material );
+      point.position.set(0,0,0);
+
+      scene.add(point);
+
+      //Leap.loop(function(frame) {
         render();
-      });
+      //});
     </script>
   </body>
 </html>
